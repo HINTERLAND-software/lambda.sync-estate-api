@@ -38,8 +38,8 @@ This lambda fetches estates from Immobilienscout24 or FlowFact and synchronises 
 
 ## TODO
 
-- [ ] CiCd
+- [x] CiCd
 - [x] Tests
 - [ ] E2E Tests
-- [x] development deploy
+- [x] development d
 - [x] production deploy
