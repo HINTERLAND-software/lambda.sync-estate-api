@@ -12,6 +12,7 @@ import { getLinkedEntities } from './lib/estate/utils';
 import { clearCache, Portal } from './lib/portal';
 import { getCountAndIds, httpResponse, Logger } from './lib/utils';
 import { Payload } from './types';
+import { writeFileSync } from 'fs';
 
 export const sync: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
@@ -98,6 +99,9 @@ export const sync: APIGatewayProxyHandler = async (
       entries: [...parsedReferences, ...entries],
       assets: [...parsed.assets, ...nested.assets],
     };
+
+    process.env.DEBUG &&
+      writeFileSync('content-import.json', JSON.stringify(content, null, 2));
 
     stats.changed = {
       entries: getCountAndIds(content.entries),

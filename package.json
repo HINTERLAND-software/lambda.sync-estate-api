@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "prettier --write **/*",
     "test": "npm run lint && npm run jest",
-    "start:offline": "serverless offline --httpPort 6060 start",
+    "start:offline": "DEBUG=true serverless offline --httpPort 6060 start",
     "upsert:ssm": "ts-node bin/upsert-ssm.ts",
     "jest": "jest",
     "jest:watch": "jest --watch",
@@ -44,7 +44,7 @@
     "aws-sdk": "^2.679.0",
     "contentful-import": "^7.7.16",
     "contentful-management": "^5.26.2",
-    "estate-portal-aggregator": "^1.3.5",
+    "estate-portal-aggregator": "^1.3.6",
     "jsonpath": "^1.0.2",
     "lodash": "^4.17.15",
     "slug": "^2.1.1",

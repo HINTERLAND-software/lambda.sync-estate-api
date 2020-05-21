@@ -1,7 +1,7 @@
 import { ContentFields } from 'contentful-management/typings/contentFields';
 import { ContentType } from 'contentful-management/typings/contentType';
 import { Locale } from 'contentful-management/typings/locale';
-import { get, set } from 'lodash';
+import { get, set, isEqual } from 'lodash';
 import {
   ContentImport,
   Dictionaries,
@@ -13,9 +13,21 @@ import { getReducer } from './reducer';
 import { getSys } from './utils';
 import keyMappings from './keyMappings';
 
+const getUnique = (arr: ImportEntity[], path) => {
+  // store the comparison  values in array
+  const unique = arr
+    .map((item) => get(item, path))
+    // store the indexes of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+    // eliminate the false indexes & return unique objects
+    .filter((e) => arr[e])
+    .map((e) => arr[e]);
+  return unique;
+};
+
 export class EstateContentfulAdapter {
   private nested: { [key: string]: ImportEntity } = {};
-  private parsed: ImportEntity[];
+  private _parsed: ImportEntity[];
 
   constructor(
     private data: TranslatedEstateProperties,
@@ -23,6 +35,10 @@ export class EstateContentfulAdapter {
     private locales: Locale[],
     private contentType: ContentType
   ) {}
+
+  private set parsed(parsed: ImportEntity[]) {
+    this._parsed = getUnique(parsed, 'sys.id');
+  }
 
   private extractNestedEntity = (parsed, locale) => {
     const array = Array.isArray(parsed) ? parsed : [parsed];
@@ -49,29 +65,41 @@ export class EstateContentfulAdapter {
   private parseEstate = async (_, i: number): Promise<ImportEntity> => {
     let id: string;
     const fields = await this.contentType.fields.reduce(async (red, field) => {
+      const reducer = getReducer(field);
+      const parser = getParser(field);
       const localized = await this.locales.reduce(
-        async (red, { code, default: isDefault }) => {
-          const processed = this.data[code];
-          const dictionary = this.dictionaries[code].common;
-
+        async (red, { code, default: isDefault, fallbackCode }) => {
           if (isDefault) {
-            id = get(processed, `[${i}].internalID`);
+            id = get(this.data[code], `[${i}].internalID`);
           }
 
-          const keys = this.getKeys(field);
+          const parse = async (code, i, field) => {
+            if (!code) return;
+            const processed = this.data[code];
+            const dictionary = this.dictionaries[code]?.common || {};
+            const item = get(processed, i);
+            const keys = this.getKeys(field);
 
-          const keysValues = keys.map((key) => ({
-            key,
-            value: get(processed, `[${i}][${key}]`),
-            dictionary,
-          }));
+            const keysValues = keys.map((key) => {
+              return { key, value: get(item, key), dictionary };
+            });
 
-          const reduced = await getReducer(field).reduce(keysValues);
-          const parsed = await getParser(field).parse(reduced);
+            const reduced = await reducer.reduce(keysValues);
+            return parser.parse(reduced);
+          };
 
-          if (parsed === undefined || parsed === null) return null;
+          const parsed = await parse(code, i, field);
+          const parsedFallback = await parse(fallbackCode, i, field);
+
+          if (
+            isEqual(parsed, parsedFallback) ||
+            parsed === undefined ||
+            parsed === null
+          ) {
+            return red;
+          }
+
           this.extractNestedEntity(parsed, code);
-
           return { ...(await red), [code]: parsed };
         },
         {}
@@ -100,7 +128,7 @@ export class EstateContentfulAdapter {
 
   public getParsed = async (): Promise<ContentImport> => {
     const parsed =
-      this.parsed ||
+      this._parsed ||
       (await Promise.all(
         this.data[this.locales[0].code].map(this.parseEstate)
       ));
@@ -111,7 +139,7 @@ export class EstateContentfulAdapter {
 
   public getNested = async (): Promise<ContentImport> => {
     const parsed =
-      this.parsed ||
+      this._parsed ||
       (await Promise.all(
         this.data[this.locales[0].code].map(this.parseEstate)
       ));

@@ -2,7 +2,8 @@ import { richTextFromMarkdown } from '@contentful/rich-text-from-markdown';
 import { ContentFields } from 'contentful-management/typings/contentFields';
 import { KeyTranslatedValueMap, KeyValueMap, NestedEntity } from '../../types';
 import { slug } from '../utils';
-import { getAssetType, hash } from './utils';
+import { getAssetType, hash, genID } from './utils';
+import { upperFirst } from 'lodash';
 
 export const getReducer = (field: ContentFields): Reducer => {
   switch (field.id) {
@@ -53,7 +54,7 @@ export class AttachmentReducer extends Reducer {
           title,
           file: {
             url: url.replace(/^http[s]?:/, ''),
-            fileName: fileName || title,
+            fileName: fileName || title || genID(6),
             contentType: contentType || getAssetType(url),
           },
         },
@@ -66,7 +67,10 @@ export class MarketingTypeReducer extends Reducer {
     string | undefined
   > {
     if (value === undefined || value === null) return;
-    return `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`;
+    return value
+      .split('_')
+      .map((s) => upperFirst(s.toLowerCase()))
+      .join(' / ');
   }
 }
 
