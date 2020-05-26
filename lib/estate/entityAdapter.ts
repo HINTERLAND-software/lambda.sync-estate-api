@@ -1,7 +1,7 @@
 import { ContentFields } from 'contentful-management/typings/contentFields';
 import { ContentType } from 'contentful-management/typings/contentType';
 import { Locale } from 'contentful-management/typings/locale';
-import { get, set, isEqual } from 'lodash';
+import { get, set, isEqual, assign } from 'lodash';
 import {
   ContentImport,
   Dictionaries,
@@ -76,7 +76,11 @@ export class EstateContentfulAdapter {
           const parse = async (code, i, field) => {
             if (!code) return;
             const processed = this.data[code];
-            const dictionary = this.dictionaries[code]?.common || {};
+            const dictionary = assign(
+              {},
+              this.dictionaries[code]?.common,
+              this.dictionaries[code]?.estate
+            );
             const item = get(processed, i);
             const keys = this.getKeys(field);
 
