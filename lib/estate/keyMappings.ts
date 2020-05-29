@@ -2,6 +2,7 @@ import { KeyMappings } from '../../types';
 
 export default {
   space: ['livingSpace'],
+  rooms: ['numberOfRooms'],
   slug: ['title'],
   freeFormTexts: [
     'descriptionNote',
@@ -14,7 +15,6 @@ export default {
     'residentialUnits',
     'floor',
     'numberOfApartments',
-    'numberOfRooms',
     'numberOfBedRooms',
     'numberOfBathRooms',
     'numberOfFloors',

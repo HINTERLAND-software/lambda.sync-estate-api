@@ -10,6 +10,7 @@ import {
   FreeFormTextsReducer,
   SpecificationsReducer,
   Reducer,
+  RoomsReducer,
 } from './reducer';
 
 describe('parser.ts', () => {
@@ -23,6 +24,7 @@ describe('parser.ts', () => {
     expect(getReducer({ id: 'address' } as any)).toBeInstanceOf(AddressReducer);
     expect(getReducer({ id: 'price' } as any)).toBeInstanceOf(PriceReducer);
     expect(getReducer({ id: 'space' } as any)).toBeInstanceOf(SpaceReducer);
+    expect(getReducer({ id: 'rooms' } as any)).toBeInstanceOf(RoomsReducer);
     expect(getReducer({ id: 'slug' } as any)).toBeInstanceOf(SlugReducer);
     expect(getReducer({ id: 'autoSynced' } as any)).toBeInstanceOf(
       AutoSyncedReducer
@@ -145,6 +147,17 @@ describe('parser.ts', () => {
         },
       ] as any)
     ).toBe('100 m²');
+  });
+
+  it('should reduce rooms', async () => {
+    const reducer = getReducer({ id: 'rooms' } as any);
+    expect(
+      await reducer.reduce([
+        {
+          value: '3',
+        },
+      ] as any)
+    ).toBe(3);
   });
 
   it('should reduce slug', async () => {

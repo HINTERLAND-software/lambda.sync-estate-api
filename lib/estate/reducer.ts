@@ -17,6 +17,8 @@ export const getReducer = (field: ContentFields): Reducer => {
       return new PriceReducer(field);
     case 'space':
       return new SpaceReducer(field);
+    case 'rooms':
+      return new RoomsReducer(field);
     case 'slug':
       return new SlugReducer(field);
     case 'autoSynced':
@@ -106,6 +108,17 @@ export class SpaceReducer extends Reducer {
   > {
     if (value === undefined || value === null) return;
     return `${value} m²`;
+  }
+}
+
+export class RoomsReducer extends Reducer {
+  async reduce([{ value }]: KeyTranslatedValueMap[]): Promise<
+    number | undefined
+  > {
+    if (value === undefined || value === null) return;
+    const result = Number.parseInt(value);
+    if (isNaN(result)) return;
+    return result;
   }
 }
 
