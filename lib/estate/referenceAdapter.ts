@@ -21,11 +21,25 @@ const mapLinked = (linked: ImportEntity[]): ImportEntity[] => {
   }));
 };
 
+const handleExistingReferences = (
+  linked: ImportEntity[],
+  existingLinked: ImportEntity[],
+  deletedIDs: String[] = []
+): ImportEntity[] => {
+  const keptLinked = existingLinked.filter(
+    ({ sys }) =>
+      !deletedIDs.includes(sys.id) &&
+      !linked.some(({ sys: lSys }) => lSys.id === sys.id)
+  );
+  return [...linked, ...keptLinked];
+};
+
 const parseReference = async (
   referenceSet: ReferenceSet,
   entities: ImportEntity[],
   contentful: Contentful,
-  locales: Locale[]
+  locales: Locale[],
+  deletedIDs?: String[]
 ): Promise<ImportEntity> => {
   const {
     contentTypeId,
@@ -59,9 +73,12 @@ const parseReference = async (
         let mapped = get(keys, `${code}.${id}`, keys[id]);
 
         const isReferenceField = id === key;
+
         const existingFieldValue = get(existingEntry, `fields[${id}][${code}]`);
-        if (!isReferenceField && existingFieldValue) {
-          mapped = existingFieldValue;
+        if (existingFieldValue) {
+          mapped = isReferenceField
+            ? handleExistingReferences(mapped, existingFieldValue, deletedIDs)
+            : existingFieldValue;
         }
 
         if (mapped === undefined || mapped === null) return red;
@@ -80,11 +97,12 @@ export const parseReferences = (
   referenceSets: ReferenceSet[] = [],
   estates: ImportEntity[],
   contentful: Contentful,
-  locales: Locale[]
+  locales: Locale[],
+  deletedIDs?: String[]
 ): Promise<ImportEntity[]> => {
   return Promise.all(
     referenceSets.map((refSet) =>
-      parseReference(refSet, estates, contentful, locales)
+      parseReference(refSet, estates, contentful, locales, deletedIDs)
     )
   );
 };

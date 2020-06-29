@@ -92,7 +92,8 @@ export const sync: APIGatewayProxyHandler = async (
           sys?.contentType?.sys?.id === merged.contentful.estateContentTypeId
       ),
       contentful,
-      locales
+      locales,
+      updates.deleted
     );
 
     const content = {
