@@ -12,7 +12,7 @@ export default {
   ],
   specifications: [
     'totalRent',
-    'serviceCharge',
+    'additionalExpenses',
     'courtage',
     'freeFrom',
     'plotArea',
