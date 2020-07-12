@@ -19,7 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.57",
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^26.0.4",
     "@types/jsonpath": "^0.2.0",
     "@types/node": "^14.0.22",
     "@types/slug": "^0.9.1",
