@@ -7,6 +7,7 @@ import {
   Dictionaries,
   ImportEntity,
   TranslatedEstateProperties,
+  OverridesConfig,
 } from '../../types';
 import { getParser } from './parser';
 import { getReducer } from './reducer';
@@ -33,7 +34,8 @@ export class EstateContentfulAdapter {
     private data: TranslatedEstateProperties,
     private dictionaries: Dictionaries,
     private locales: Locale[],
-    private contentType: ContentType
+    private contentType: ContentType,
+    private overrides?: OverridesConfig
   ) {}
 
   private set parsed(parsed: ImportEntity[]) {
@@ -79,14 +81,21 @@ export class EstateContentfulAdapter {
             const dictionary = assign(
               {},
               this.dictionaries[code]?.common,
-              this.dictionaries[code]?.estate
+              this.dictionaries[code]?.estate,
+              this.overrides?.dictionary?.[code]
             );
             const item = get(processed, i);
             const keys = this.getKeys(field);
 
-            const keysValues = keys.map((key) => {
-              return { key, value: get(item, key), dictionary };
-            });
+            const blacklist = this.overrides?.blacklist || [];
+
+            const keysValues = keys
+              .filter((key) => !blacklist.includes(key))
+              .map((key) => ({
+                key,
+                value: get(item, key),
+                dictionary,
+              }));
 
             const reduced = await reducer.reduce(keysValues);
             return parser.parse(reduced);

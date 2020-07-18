@@ -77,7 +77,8 @@ export const sync: APIGatewayProxyHandler = async (
       changedEstates,
       portal.dictionaries,
       locales,
-      estateContentType
+      estateContentType,
+      merged.overrides
     );
 
     const parsed = await adapter.getParsed();

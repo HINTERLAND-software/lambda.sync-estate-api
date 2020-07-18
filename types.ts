@@ -55,6 +55,13 @@ export declare interface PortalConfig {
   credentials: OAuth | BasicAuth | TokenAuth;
 }
 
+export declare interface OverridesConfig {
+  blacklist?: string[];
+  dictionary?: {
+    [code: string]: Mapping;
+  };
+}
+
 export declare interface ReferenceSet {
   contentTypeId: string;
   entityId?: string;
@@ -78,6 +85,7 @@ export declare interface Config {
   domain: string;
   portal: PortalConfig;
   contentful: ContentfulConfig;
+  overrides: OverridesConfig;
 }
 
 export declare interface ContentImport {
