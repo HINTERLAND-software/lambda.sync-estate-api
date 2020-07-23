@@ -95,3 +95,11 @@ functions:
           path: /
           method: POST
           async: true
+  config:
+    handler: handler.config
+    events:
+      - http:
+          private: true
+          cors: true
+          path: /config/{domain}
+          method: GET

@@ -10,7 +10,12 @@ import { EstateContentfulAdapter } from './lib/estate/entityAdapter';
 import { parseReferences } from './lib/estate/referenceAdapter';
 import { getLinkedEntities } from './lib/estate/utils';
 import { clearCache, Portal } from './lib/portal';
-import { getCountAndIds, httpResponse, Logger } from './lib/utils';
+import {
+  getCountAndIds,
+  httpResponse,
+  Logger,
+  getEnvironment,
+} from './lib/utils';
 import { Payload } from './types';
 import { writeFileSync } from 'fs';
 
@@ -135,6 +140,27 @@ export const sync: APIGatewayProxyHandler = async (
         stats,
       }
     );
+  } catch (error) {
+    Logger.error(error);
+    clearCache();
+    return httpResponse(error.statusCode, error.message, error);
+  }
+};
+
+export const config: APIGatewayProxyHandler = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  try {
+    const { domain } = event.pathParameters;
+
+    const configuration = await getConfig(domain);
+    const env = getEnvironment();
+
+    clearCache();
+    return httpResponse(200, 'Configuration results', {
+      env,
+      configuration,
+    });
   } catch (error) {
     Logger.error(error);
     clearCache();
