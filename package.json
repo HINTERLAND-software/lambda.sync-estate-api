@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@contentful/rich-text-from-markdown": "^14.1.1",
-    "aws-sdk": "^2.729.0",
+    "aws-sdk": "^2.734.0",
     "contentful-import": "^7.9.4",
     "contentful-management": "^5.26.3",
     "estate-portal-aggregator": "^1.4.2",
