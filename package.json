@@ -46,7 +46,7 @@
     "contentful-management": "^5.26.3",
     "estate-portal-aggregator": "^1.4.2",
     "jsonpath": "^1.0.2",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "slug": "^3.3.4",
     "source-map-support": "^0.5.19"
   }
