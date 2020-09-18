@@ -44,7 +44,7 @@
     "aws-sdk": "^2.751.0",
     "contentful-import": "^7.9.8",
     "contentful-management": "^5.26.3",
-    "estate-portal-aggregator": "^1.4.2",
+    "estate-portal-aggregator": "^1.4.3",
     "jsonpath": "^1.0.2",
     "lodash": "^4.17.20",
     "slug": "^3.3.4",
