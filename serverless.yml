@@ -12,6 +12,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: ${env:AWS_REGION}
+  logRetentionInDays: 30
   stage: ${opt:stage, env:ENV} # you can override this via the CLI argument
   apiKeys:
     - ${self:service}-key-${self:provider.stage}
@@ -65,7 +66,7 @@ custom:
         treatMissingData: notBreaching
       functionDuration:
         unit: Seconds
-        threshold: 300000
+        threshold: 600000
         period: 300
         treatMissingData: notBreaching
       statusCodeErrors:
@@ -86,7 +87,7 @@ custom:
 
 functions:
   sync:
-    timeout: 300 # timeout 5 mins
+    timeout: 600 # timeout 10 mins
     handler: handler.sync
     events:
       - http:
