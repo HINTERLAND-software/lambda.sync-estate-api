@@ -42,7 +42,7 @@
   "dependencies": {
     "@contentful/rich-text-from-markdown": "^14.1.2",
     "aws-sdk": "^2.799.0",
-    "contentful-import": "^7.9.23",
+    "contentful-import": "^7.9.25",
     "contentful-management": "^5.26.3",
     "estate-portal-aggregator": "^1.4.3",
     "jsonpath": "^1.0.2",
