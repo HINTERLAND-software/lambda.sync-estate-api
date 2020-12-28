@@ -18,7 +18,7 @@
   "author": "jroehl <mail@hinterland.software>",
   "license": "MIT",
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.66",
+    "@types/aws-lambda": "^8.10.68",
     "@types/jest": "^26.0.19",
     "@types/jsonpath": "^0.2.0",
     "@types/node": "^14.14.16",
