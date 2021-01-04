@@ -85,11 +85,16 @@ custom:
         pattern: '{$.statusCode != 200}'
         treatMissingData: missing
     alarms:
-      - functionThrottles
-      - functionErrors
-      - functionInvocations
-      - functionDuration
-      - statusCodeErrors
+      - name: functionThrottles
+        enabled: ${self:custom.enabled.${self:provider.stage}}
+      - name: functionErrors
+        enabled: true
+      - name: functionInvocations
+        enabled: true
+      - name: functionDuration
+        enabled: ${self:custom.enabled.${self:provider.stage}}
+      - name: statusCodeErrors
+        enabled: true
 
 functions:
   sync:
@@ -104,6 +109,15 @@ functions:
           async: true
   config:
     handler: handler.config
+    alarms:
+      - name: functionThrottles
+        enabled: false
+      - name: functionDuration
+        enabled: false
+      - name: functionErrors
+        enabled: false
+      - name: statusCodeErrors
+        enabled: false
     events:
       - http:
           private: true
