@@ -58,7 +58,7 @@ describe('parser.ts', () => {
   });
 
   it('should parse Link', async () => {
-    const parser = getParser({ type: 'Link', linkType: 'linkType' });
+    const parser = getParser({ type: 'Link', linkType: 'Entry' });
     const entity = { entityID: '1' };
     expect(await parser.parse(entity)).toEqual({
       entity: {
@@ -66,7 +66,7 @@ describe('parser.ts', () => {
       },
       sys: {
         id: '1',
-        linkType: 'linkType',
+        linkType: 'Entry',
         type: 'Link',
       },
     });
@@ -75,7 +75,7 @@ describe('parser.ts', () => {
   it('should parse Array recursively', async () => {
     const parser = getParser({
       type: 'Array',
-      linkType: 'linkType',
+      linkType: 'Asset',
       items: { type: 'Integer' },
     });
     const entity = [1.0, 4.5];

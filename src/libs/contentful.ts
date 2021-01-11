@@ -1,16 +1,16 @@
 import contentfulImport from 'contentful-import';
 import * as contentful from 'contentful-management';
-import { Asset } from 'contentful-management/typings/asset';
-import { ContentType } from 'contentful-management/typings/contentType';
-import { Entry } from 'contentful-management/typings/entry';
-import { Environment } from 'contentful-management/typings/environment';
-import { Locale } from 'contentful-management/typings/locale';
 import {
+  Environment,
+  Space,
+  Asset,
+  Locale,
+  ContentType,
+  Entry,
   MetaLinkProps,
   MetaSysProps,
-} from 'contentful-management/typings/meta';
-import { Space } from 'contentful-management/typings/space';
-import { ContentfulConfig, ContentImport } from '../types';
+} from 'contentful-management/dist/typings/export-types';
+import { ContentfulConfig, ContentImport } from './types';
 import { Logger } from './utils';
 
 export class Contentful {

@@ -1,4 +1,4 @@
-import { KeyMappings } from '../../types';
+import { KeyMappings } from '../types';
 
 export default {
   space: ['livingSpace'],
