@@ -1,25 +1,5 @@
-import { APIGatewayProxyResult } from 'aws-lambda';
 import { default as slg } from 'slug';
-import { StatsCountIds } from '../types';
-
-export const httpResponse = (
-  statusCode: number = 400,
-  message: string,
-  result?: any
-): APIGatewayProxyResult => {
-  Logger.log(JSON.stringify({ statusCode, message, result }, null, 2));
-  return {
-    statusCode,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': '*',
-    },
-    body: JSON.stringify({
-      message,
-      result,
-    }),
-  };
-};
+import { StatsCountIds } from './types';
 
 export const getEnvironment = (): string => {
   const { STAGE, NODE_ENV = 'development' } = process.env;

@@ -1,9 +1,7 @@
-import { LinkType } from 'contentful-management/typings/appDefinition';
-import { Entry } from 'contentful-management/typings/entry';
-import { Locale } from 'contentful-management/typings/locale';
+import { Locale, Entry } from 'contentful-management/dist/typings/export-types';
 import jp from 'jsonpath';
 import { get } from 'lodash';
-import { ImportEntity, ReferenceSet } from '../../types';
+import { ImportEntity, LinkType, ReferenceSet } from '../types';
 import { Contentful } from '../contentful';
 import { slug } from '../utils';
 import { getSys } from './utils';

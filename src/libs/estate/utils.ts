@@ -1,12 +1,12 @@
-import { Entry } from 'contentful-management/typings/entry';
-import { Locale } from 'contentful-management/typings/locale';
 import {
+  Locale,
+  Entry,
   MetaLinkProps,
   MetaSysProps,
-} from 'contentful-management/typings/meta';
+} from 'contentful-management/dist/typings/export-types';
 import { createHash } from 'crypto';
 import { parse } from 'url';
-import { ImportEntitySys, ValidMimeTypes } from '../../types';
+import { ImportEntitySys, ValidMimeTypes } from '../types';
 
 export const hash = (arg: string): string =>
   createHash('md5').update(arg).digest('hex');

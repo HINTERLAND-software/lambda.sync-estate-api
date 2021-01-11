@@ -1,11 +1,6 @@
 import { richTextFromMarkdown } from '@contentful/rich-text-from-markdown';
-import { LinkType } from 'contentful-management/typings/appDefinition';
-import {
-  ContentFields,
-  Item,
-} from 'contentful-management/typings/contentFields';
-import { RichText } from 'contentful-management/typings/entryFields';
-import { ImportEntity } from '../../types';
+import { ContentFields } from 'contentful-management/dist/typings/export-types';
+import { ImportEntity, LinkType, RichText, Item } from '../types';
 
 export const getParser = (field: ContentFields | Item): Parser => {
   switch (field.type) {
@@ -95,7 +90,7 @@ export class ArrayParser extends Parser {
     if (val === undefined || val === null) return;
     return Promise.all(
       val.map((v) => {
-        const parser = getParser((this.field as ContentFields).items);
+        const parser = getParser((this.field as ContentFields).items as Item);
         return parser.parse(v);
       })
     );

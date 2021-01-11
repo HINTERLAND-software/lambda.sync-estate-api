@@ -1,3 +1,5 @@
+const { resolve } = require('path');
+
 module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
@@ -9,4 +11,7 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: './coverage',
   coverageReporters: ['json', 'text', 'html'],
+  moduleNameMapper: {
+    '^@libs/(.*)$': resolve(__dirname, './src/libs/$1'),
+  },
 };
