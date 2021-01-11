@@ -7,7 +7,7 @@ import { parseReferences } from '@libs/estate/referenceAdapter';
 import { getLinkedEntities } from '@libs/estate/utils';
 import { clearCache, Portal } from '@libs/portal';
 import { getCountAndIds, Logger } from '@libs/utils';
-import { middyfy } from '@libs/lambda';
+// import { middyfy } from '@libs/lambda';
 import {
   httpResponse,
   ValidatedEventAPIGatewayProxyEvent,
