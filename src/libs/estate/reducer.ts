@@ -1,9 +1,9 @@
 import { richTextFromMarkdown } from '@contentful/rich-text-from-markdown';
-import { ContentFields } from 'contentful-management/typings/contentFields';
-import { KeyTranslatedValueMap, KeyValueMap, NestedEntity } from '../../types';
+import { KeyTranslatedValueMap, KeyValueMap, NestedEntity } from '../types';
 import { slug } from '../utils';
 import { getAssetType, hash, genID } from './utils';
 import { upperFirst } from 'lodash';
+import { ContentFields } from 'contentful-management/dist/typings/export-types';
 
 export const getReducer = (field: ContentFields): Reducer => {
   switch (field.id) {

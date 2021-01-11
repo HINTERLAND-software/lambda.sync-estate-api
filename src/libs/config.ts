@@ -1,5 +1,5 @@
 import { SSM } from 'aws-sdk';
-import { Config } from '../types';
+import { Config } from './types';
 
 export const fetchSSM = async (path: string): Promise<string | undefined> => {
   const { AWS_REGION: region, AWS_SSM_PREFIX: prefix } = process.env;
@@ -43,11 +43,11 @@ export const mergeConfig = (
     ...bodyConfig,
     ...storedConfig,
     contentful: {
-      ...bodyConfig.contentful,
+      ...(bodyConfig.contentful || {}),
       ...storedConfig.contentful,
     },
     portal: {
-      ...bodyConfig.portal,
+      ...(bodyConfig.portal || {}),
       ...storedConfig.portal,
     },
   };

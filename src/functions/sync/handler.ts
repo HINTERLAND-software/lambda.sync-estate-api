@@ -1,29 +1,25 @@
-import {
-  APIGatewayProxyEvent,
-  APIGatewayProxyHandler,
-  APIGatewayProxyResult,
-} from 'aws-lambda';
 import 'source-map-support/register';
-import { getConfig, mergeConfig } from './lib/config';
-import { Contentful } from './lib/contentful';
-import { EstateContentfulAdapter } from './lib/estate/entityAdapter';
-import { parseReferences } from './lib/estate/referenceAdapter';
-import { getLinkedEntities } from './lib/estate/utils';
-import { clearCache, Portal } from './lib/portal';
-import {
-  getCountAndIds,
-  httpResponse,
-  Logger,
-  getEnvironment,
-} from './lib/utils';
-import { Payload } from './types';
 import { writeFileSync } from 'fs';
+import { getConfig, mergeConfig } from '@libs/config';
+import { Contentful } from '@libs/contentful';
+import { EstateContentfulAdapter } from '@libs/estate/entityAdapter';
+import { parseReferences } from '@libs/estate/referenceAdapter';
+import { getLinkedEntities } from '@libs/estate/utils';
+import { clearCache, Portal } from '@libs/portal';
+import { getCountAndIds, Logger } from '@libs/utils';
+import { middyfy } from '@libs/lambda';
+import {
+  httpResponse,
+  ValidatedEventAPIGatewayProxyEvent,
+} from '@libs/apiGateway';
 
-export const sync: APIGatewayProxyHandler = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+import schema from './schema';
+
+export const sync: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
+  event
+) => {
   try {
-    const { config, updates }: Payload =
+    const { config, updates } =
       typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
 
     const stored = await getConfig(config.domain);
@@ -147,23 +143,4 @@ export const sync: APIGatewayProxyHandler = async (
   }
 };
 
-export const config: APIGatewayProxyHandler = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
-  try {
-    const { domain } = event.pathParameters;
-
-    const configuration = await getConfig(domain);
-    const env = getEnvironment();
-
-    clearCache();
-    return httpResponse(200, 'Configuration results', {
-      env,
-      configuration,
-    });
-  } catch (error) {
-    Logger.error(error);
-    clearCache();
-    return httpResponse(error.statusCode, error.message, error);
-  }
-};
+export const main = middyfy(sync);

@@ -7,9 +7,20 @@ import {
   Mapping,
   RealEstateDetailedProperties,
 } from 'estate-portal-aggregator/lib/classes/portals/Estate';
-import { MetaSysProps } from 'contentful-management/typings/meta';
-import { EntrySys, EntryProp } from 'contentful-management/typings/entry';
-import { LinkType } from 'contentful-management/typings/appDefinition';
+import {
+  MetaSysProps,
+  EntityMetaSysProps,
+  Entry,
+  Asset,
+} from 'contentful-management/dist/typings/export-types';
+
+export type LinkType = 'Entry' | 'Asset';
+
+export interface RichText {}
+export interface Item {
+  type: string;
+  linkType?: LinkType;
+}
 
 export interface KeyTranslatedValueMap {
   key: string;
@@ -32,15 +43,6 @@ export interface WebhookResponse {
   hasUpdates: boolean;
   disabled: boolean;
   response?: any;
-}
-
-export interface Payload {
-  config: Config;
-  updates: {
-    deleted: string[];
-    updated: string[];
-    created: string[];
-  };
 }
 
 export type FlowFactVersion = 'v1' | 'v2';
@@ -107,21 +109,21 @@ export declare interface Dictionary {
 }
 
 export declare interface NestedEntity {
-  fields: EntryProp['fields'];
+  fields: Entry['fields'] | Asset['fields'];
   entityID: string;
   contentTypeID: string;
 }
 
 export declare interface ImportEntity {
   sys: ImportEntitySys;
-  fields?: EntryProp['fields'];
+  fields?: Entry['fields'] | Asset['fields'];
   entity?: NestedEntity;
 }
 
 export declare interface ImportEntitySys
   extends Omit<MetaSysProps, 'createdAt' | 'updatedAt' | 'version'> {
   publishedVersion?: number;
-  contentType?: EntrySys['contentType'];
+  contentType?: EntityMetaSysProps['contentType'];
   linkType?: LinkType;
 }
 

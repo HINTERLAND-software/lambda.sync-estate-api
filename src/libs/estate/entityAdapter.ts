@@ -1,6 +1,8 @@
-import { ContentFields } from 'contentful-management/typings/contentFields';
-import { ContentType } from 'contentful-management/typings/contentType';
-import { Locale } from 'contentful-management/typings/locale';
+import {
+  Locale,
+  ContentType,
+  ContentFields,
+} from 'contentful-management/dist/typings/export-types';
 import { get, set, isEqual, assign } from 'lodash';
 import {
   ContentImport,
@@ -8,7 +10,7 @@ import {
   ImportEntity,
   TranslatedEstateProperties,
   OverridesConfig,
-} from '../../types';
+} from '../types';
 import { getParser } from './parser';
 import { getReducer } from './reducer';
 import { getSys } from './utils';

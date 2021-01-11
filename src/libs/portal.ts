@@ -1,4 +1,4 @@
-import { Locale } from 'contentful-management/typings/locale';
+import { Locale } from 'contentful-management/dist/typings/export-types';
 import * as aggregators from 'estate-portal-aggregator';
 import {
   BasicAuth,
@@ -15,7 +15,7 @@ import {
   Dictionaries,
   PortalConfig,
   TranslatedEstateProperties,
-} from '../types';
+} from './types';
 import { Logger } from './utils';
 
 let cache: { [id: string]: Estate } = {};
