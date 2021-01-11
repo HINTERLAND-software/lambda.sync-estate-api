@@ -143,4 +143,5 @@ export const sync: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-export const main = middyfy(sync);
+// export const main = middyfy(sync);
+export const main = sync;
