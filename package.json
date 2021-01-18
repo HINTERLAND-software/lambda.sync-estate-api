@@ -43,7 +43,7 @@
     "webpack-node-externals": "^2.5.2"
   },
   "dependencies": {
-    "@middy/core": "^1.5.0",
+    "@middy/core": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.0",
     "@contentful/rich-text-from-markdown": "^14.1.2",
     "aws-sdk": "^2.824.0",
