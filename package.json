@@ -50,7 +50,7 @@
     "contentful-import": "^7.9.32",
     "contentful-management": "^7.5.1",
     "estate-portal-aggregator": "^1.4.3",
-    "jsonpath": "^1.0.2",
+    "jsonpath": "^1.1.0",
     "lodash": "^4.17.20",
     "slug": "^4.0.2",
     "source-map-support": "^0.5.19"
