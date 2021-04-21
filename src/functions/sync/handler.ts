@@ -122,8 +122,9 @@ export const sync: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       assets: getCountAndIds(content.assets),
     };
 
-    const { publishedAssets = [], publishedEntries = [] } =
-      {} || (await contentful.import(content));
+    const { publishedAssets, publishedEntries } = await contentful.import(
+      content
+    );
 
     stats.published = {
       entries: getCountAndIds(publishedEntries),
