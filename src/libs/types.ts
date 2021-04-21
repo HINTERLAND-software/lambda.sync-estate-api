@@ -54,7 +54,7 @@ export declare interface PortalConfig {
   filter?: string;
   type: Types;
   version: FlowFactVersion | Immobilienscout24Version;
-  credentials: OAuth | BasicAuth | TokenAuth;
+  credentials?: OAuth | BasicAuth | TokenAuth;
 }
 
 export declare interface OverridesConfig {
@@ -75,7 +75,7 @@ export declare interface ReferenceSet {
 }
 
 export declare interface ContentfulConfig {
-  cmaToken: string;
+  cmaToken?: string;
   filter?: string;
   estateContentTypeId: string;
   environmentId: string;
@@ -87,7 +87,7 @@ export declare interface Config {
   domain: string;
   portal: PortalConfig;
   contentful: ContentfulConfig;
-  overrides: OverridesConfig;
+  overrides?: OverridesConfig;
 }
 
 export declare interface ContentImport {

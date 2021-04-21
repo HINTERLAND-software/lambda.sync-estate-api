@@ -69,4 +69,4 @@ typings/
 .webpack
 
 .vscode
-content-import.json
+debug*.json
