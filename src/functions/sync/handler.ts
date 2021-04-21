@@ -7,7 +7,7 @@ import { parseReferences } from '@libs/estate/referenceAdapter';
 import { getLinkedEntities } from '@libs/estate/utils';
 import { clearCache, Portal } from '@libs/portal';
 import { getCountAndIds, Logger } from '@libs/utils';
-// import { middyfy } from '@libs/lambda';
+
 import {
   httpResponse,
   ValidatedEventAPIGatewayProxyEvent,
@@ -20,7 +20,9 @@ export const sync: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   try {
     const { config, updates } =
-      typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+      typeof event.body === 'string'
+        ? (JSON.parse(event.body) as typeof event.body)
+        : event.body;
 
     const stored = await getConfig(config.domain);
     const merged = mergeConfig(config, stored);
@@ -111,9 +113,8 @@ export const sync: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       assets: getCountAndIds(content.assets),
     };
 
-    const { publishedAssets, publishedEntries } = await contentful.import(
-      content
-    );
+    const { publishedAssets = [], publishedEntries = [] } =
+      {} || (await contentful.import(content));
 
     stats.published = {
       entries: getCountAndIds(publishedEntries),

@@ -1,8 +1,10 @@
 export default {
   type: 'object',
+  additionalProperties: false,
   properties: {
     updates: {
       type: 'object',
+      additionalProperties: false,
       required: ['updated', 'created', 'deleted'],
       properties: {
         updated: {
@@ -27,6 +29,7 @@ export default {
     },
     config: {
       type: 'object',
+      additionalProperties: false,
       required: ['domain', 'portal', 'contentful'],
       properties: {
         domain: {
@@ -34,18 +37,20 @@ export default {
         },
         portal: {
           type: 'object',
+          additionalProperties: false,
           required: ['type', 'version'],
           properties: {
             type: {
-              type: 'string',
+              enum: ['immobilienscout24', 'flowfact'],
             },
             version: {
-              type: 'string',
+              enum: ['v1', 'v2'],
             },
           },
         },
         contentful: {
           type: 'object',
+          additionalProperties: false,
           required: ['estateContentTypeId', 'environmentId', 'spaceId'],
           properties: {
             estateContentTypeId: {
@@ -63,4 +68,4 @@ export default {
     },
   },
   required: ['updates', 'config'],
-};
+} as const;
