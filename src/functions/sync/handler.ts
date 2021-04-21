@@ -72,6 +72,12 @@ export const sync: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       locales
     );
 
+    process.env.DEBUG &&
+      writeFileSync(
+        'debug-changedEstates.json',
+        JSON.stringify(changedEstates, null, 2)
+      );
+
     const estateContentType = await contentful.getContentType(
       merged.contentful.estateContentTypeId
     );
@@ -106,7 +112,10 @@ export const sync: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     };
 
     process.env.DEBUG &&
-      writeFileSync('content-import.json', JSON.stringify(content, null, 2));
+      writeFileSync(
+        'debug-contentImport.json',
+        JSON.stringify(content, null, 2)
+      );
 
     stats.changed = {
       entries: getCountAndIds(content.entries),
