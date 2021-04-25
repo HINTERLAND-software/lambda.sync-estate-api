@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@middy/core": "^2.1.0",
-    "@middy/http-json-body-parser": "^2.0.1",
+    "@middy/http-json-body-parser": "^2.1.0",
     "@contentful/rich-text-from-markdown": "^14.1.2",
     "aws-sdk": "^2.884.0",
     "contentful-import": "^8.1.3",
