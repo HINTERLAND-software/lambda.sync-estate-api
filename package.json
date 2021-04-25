@@ -52,7 +52,7 @@
     "estate-portal-aggregator": "^1.4.4",
     "jsonpath": "^1.1.1",
     "lodash": "^4.17.21",
-    "slug": "^4.0.3",
+    "slug": "^4.0.4",
     "source-map-support": "^0.5.19"
   }
 }
