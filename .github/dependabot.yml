@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "01:00"
+    timezone: Europe/Berlin
+  open-pull-requests-limit: 10
+  reviewers:
+  - jroehl
+  ignore:
+  - dependency-name: jsonpath
+    versions:
+    - 1.1.1
