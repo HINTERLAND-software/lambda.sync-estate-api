@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@serverless/typescript": "^2.50.0",
-    "@types/aws-lambda": "^8.10.77",
+    "@types/aws-lambda": "^8.10.78",
     "@types/jest": "^26.0.23",
     "@types/jsonpath": "^0.2.0",
     "@types/node": "^16.0.0",
