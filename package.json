@@ -21,7 +21,7 @@
     "@types/aws-lambda": "^8.10.78",
     "@types/jest": "^26.0.23",
     "@types/jsonpath": "^0.2.0",
-    "@types/node": "^16.0.0",
+    "@types/node": "^16.3.3",
     "@types/slug": "^5.0.2",
     "dotenv": "^10.0.0",
     "fork-ts-checker-webpack-plugin": "^6.2.12",
