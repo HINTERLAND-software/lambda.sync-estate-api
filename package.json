@@ -19,7 +19,7 @@
   "devDependencies": {
     "@serverless/typescript": "^2.50.0",
     "@types/aws-lambda": "^8.10.79",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^26.0.24",
     "@types/jsonpath": "^0.2.0",
     "@types/node": "^16.3.3",
     "@types/slug": "^5.0.2",
