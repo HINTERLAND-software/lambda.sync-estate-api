@@ -24,7 +24,7 @@
     "@types/node": "^16.3.3",
     "@types/slug": "^5.0.2",
     "dotenv": "^10.0.0",
-    "fork-ts-checker-webpack-plugin": "^6.2.12",
+    "fork-ts-checker-webpack-plugin": "^6.3.2",
     "jest": "^26.6.3",
     "jest-cli": "^27.0.6",
     "json-schema-to-ts": "^1.6.4",
