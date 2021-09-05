@@ -48,7 +48,7 @@
     "@contentful/rich-text-from-markdown": "^15.1.0",
     "aws-sdk": "^2.978.0",
     "contentful-import": "^8.2.0",
-    "contentful-management": "^7.33.0",
+    "contentful-management": "^7.36.1",
     "estate-portal-aggregator": "^1.5.1",
     "jsonpath": "^1.1.1",
     "lodash": "^4.17.21",
