@@ -47,7 +47,7 @@
     "@middy/http-json-body-parser": "^2.5.1",
     "@contentful/rich-text-from-markdown": "^15.1.0",
     "aws-sdk": "^2.978.0",
-    "contentful-import": "^8.2.0",
+    "contentful-import": "^8.2.6",
     "contentful-management": "^7.37.0",
     "estate-portal-aggregator": "^1.5.1",
     "jsonpath": "^1.1.1",
