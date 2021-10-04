@@ -28,7 +28,7 @@
     "jest": "^26.6.3",
     "jest-cli": "^27.2.4",
     "json-schema-to-ts": "^1.6.4",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.1",
     "serverless": "^2.60.3",
     "serverless-domain-manager": "^5.1.5",
     "serverless-offline": "^8.2.0",
