@@ -16,6 +16,7 @@ export default {
     'courtage',
     'freeFrom',
     'plotArea',
+    'totalArea',
     'residentialUnits',
     'floor',
     'numberOfApartments',

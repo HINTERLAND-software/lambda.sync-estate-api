@@ -43,8 +43,7 @@ export const mockEstatesIS24 = [
     attachments: [
       {
         title: 'Titelbild',
-        url:
-          'https://pictures.immobilienscout24.de/listings/32836a42-9b4f-48a5-856d-f3e42a430cf0-1367406248.jpg',
+        url: 'https://pictures.immobilienscout24.de/listings/32836a42-9b4f-48a5-856d-f3e42a430cf0-1367406248.jpg',
       },
     ],
   }),
