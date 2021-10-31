@@ -1,9 +1,9 @@
 import { richTextFromMarkdown } from '@contentful/rich-text-from-markdown';
+import { ContentFields } from 'contentful-management/dist/typings/export-types';
+import { upperFirst } from 'lodash';
 import { KeyTranslatedValueMap, KeyValueMap, NestedEntity } from '../types';
 import { slug } from '../utils';
-import { getAssetType, hash, genID } from './utils';
-import { upperFirst } from 'lodash';
-import { ContentFields } from 'contentful-management/dist/typings/export-types';
+import { genID, getAssetType, hash } from './utils';
 
 export const getReducer = (field: ContentFields): Reducer => {
   switch (field.id) {
@@ -159,14 +159,21 @@ export class SpecificationsReducer extends Reducer {
     if (val === undefined || val === null) return;
     return val
       .filter(({ value }) => value !== undefined)
-      .map(({ key, value, dictionary }) => ({
-        key: dictionary[key.toLowerCase()] || key,
-        value:
-          typeof value === 'boolean'
-            ? value
-              ? dictionary.yes || 'Yes'
-              : dictionary.no || 'No'
-            : dictionary[value.toString().toLowerCase()] || value.toString(),
-      }));
+      .map(({ key, value, dictionary }) => {
+        return {
+          key: dictionary[key.toLowerCase()] || key,
+          value: getValue(),
+        };
+
+        function getValue(): any {
+          if (typeof value === 'boolean') {
+            return value ? dictionary.yes || 'Yes' : dictionary.no || 'No';
+          }
+          if (key.toLowerCase().endsWith('area')) {
+            return `${value} m²`;
+          }
+          return dictionary[value.toString().toLowerCase()] || value.toString();
+        }
+      });
   }
 }
