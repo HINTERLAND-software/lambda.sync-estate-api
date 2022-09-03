@@ -49,7 +49,7 @@
     "aws-sdk": "^2.999.0",
     "contentful-import": "^8.2.13",
     "contentful-management": "^7.41.0",
-    "estate-portal-aggregator": "^1.6.0",
+    "estate-portal-aggregator": "^1.6.1",
     "jsonpath": "^1.1.1",
     "lodash": "^4.17.21",
     "slug": "^5.1.0",
