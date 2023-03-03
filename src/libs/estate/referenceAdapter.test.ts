@@ -1,8 +1,8 @@
-import { parseReferences } from './referenceAdapter';
-import { mockLocales } from '../__mocks__/contentful-management';
 import { Contentful } from '../contentful';
 import { mockParameters } from '../__mocks__/aws-sdk';
+import { mockLocales } from '../__mocks__/contentful-management';
 import { parsedResult } from '../__mocks__/results';
+import { parseReferences } from './referenceAdapter';
 
 const referenceSets = [
   ...mockParameters['hinterland.software'].contentful.referenceSets,
@@ -30,7 +30,7 @@ describe('referenceAdapter.ts', () => {
     await contentful.init();
     const result = await parseReferences(
       referenceSets,
-      parsedResult.entries,
+      [...parsedResult.entries, ...parsedResult.entries],
       contentful,
       mockLocales.items as any
     );
