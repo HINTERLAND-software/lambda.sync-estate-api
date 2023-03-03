@@ -1,8 +1,8 @@
-import { Locale, Entry } from 'contentful-management/dist/typings/export-types';
+import { Entry, Locale } from 'contentful-management/dist/typings/export-types';
 import jp from 'jsonpath';
-import { get } from 'lodash';
-import { ImportEntity, LinkType, ReferenceSet } from '../types';
+import { get, uniqBy } from 'lodash';
 import { Contentful } from '../contentful';
+import { ImportEntity, LinkType, ReferenceSet } from '../types';
 import { slug } from '../utils';
 import { getSys } from './utils';
 
@@ -21,15 +21,15 @@ const mapLinked = (linked: ImportEntity[]): ImportEntity[] => {
 
 const handleExistingReferences = (
   linked: ImportEntity[],
-  existingLinked: ImportEntity[],
+  existingLinked?: ImportEntity[],
   deletedIDs: String[] = []
 ): ImportEntity[] => {
-  const keptLinked = existingLinked.filter(
+  const kept = existingLinked?.filter(
     ({ sys }) =>
       !deletedIDs.includes(sys.id) &&
       !linked.some(({ sys: lSys }) => lSys.id === sys.id)
   );
-  return [...linked, ...keptLinked];
+  return uniqBy([...linked, ...(kept || [])], 'sys.id');
 };
 
 const parseReference = async (
